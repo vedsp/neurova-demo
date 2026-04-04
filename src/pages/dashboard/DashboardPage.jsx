@@ -56,7 +56,7 @@ export default function DashboardPage() {
           {greeting}{firstName ? `, ${firstName}` : ''}
         </h2>
         <p className="dashboard__subtext">
-          {t('nav.home')} — Welcome to your healing space.
+          {t('nav.home')} — {t('dashboard.welcome')}
         </p>
       </div>
 
@@ -65,44 +65,43 @@ export default function DashboardPage() {
           <div className="stat-icon"><CalendarIcon /></div>
           <p className="stat-card__value">{daysSinceJoining}</p>
           <p className="stat-card__label">
-            {daysSinceJoining === 1 ? 'Day' : 'Days'} Active
+            {daysSinceJoining === 1 ? t('dashboard.day') : t('dashboard.days')} {t('dashboard.active')}
           </p>
         </Card>
 
         <Card padding="md" className="stat-card stat-card-premium">
           <div className="stat-icon"><CheckCircleIcon /></div>
           <p className="stat-card__value">0</p>
-          <p className="stat-card__label">Sessions Logged</p>
+          <p className="stat-card__label">{t('dashboard.sessions_logged')}</p>
         </Card>
 
-        <a href="#" style={{ textDecoration: 'none', display: 'block' }}>
+        <Link to="/exercise" style={{ textDecoration: 'none', display: 'block' }}>
           <Card padding="md" className="stat-card stat-card-premium" style={{ height: '100%' }}>
             <div className="stat-icon"><ActivityIcon /></div>
-            <p className="stat-card__value" style={{ fontSize: 'var(--fs-xl)' }}>Physical</p>
-            <p className="stat-card__label">Therapy</p>
+            <p className="stat-card__value" style={{ fontSize: 'var(--fs-xl)' }}>{t('dashboard.physical')}</p>
+            <p className="stat-card__label">{t('dashboard.therapy')}</p>
           </Card>
-        </a>
+        </Link>
 
         <a href="/mental-app/index.html" style={{ textDecoration: 'none', display: 'block' }}>
           <Card padding="md" className="stat-card stat-card-premium" style={{ height: '100%' }}>
             <div className="stat-icon"><BrainIcon /></div>
-            <p className="stat-card__value" style={{ fontSize: 'var(--fs-xl)' }}>Cognitive</p>
-            <p className="stat-card__label">Training</p>
+            <p className="stat-card__value" style={{ fontSize: 'var(--fs-xl)' }}>{t('dashboard.cognitive')}</p>
+            <p className="stat-card__label">{t('dashboard.training')}</p>
           </Card>
         </a>
       </div>
 
       <div className="dashboard-section">
         <div className="dashboard-section__header">
-          <h3 className="dashboard-section__title">Recovery Journey</h3>
+          <h3 className="dashboard-section__title">{t('dashboard.journey')}</h3>
         </div>
         
         <div className="progress-banner">
           <div className="progress-banner__text">
-            <h4 className="progress-banner__title">Level 1: Foundation</h4>
+            <h4 className="progress-banner__title">{t('dashboard.level1')}</h4>
             <p className="progress-banner__desc">
-              Your rehabilitation journey has begun. As you log sessions and track progress, 
-              personalized insights and real-time feedback will guide you.
+              {t('dashboard.level1_desc')}
             </p>
           </div>
           <div className="progress-ring">
@@ -120,10 +119,10 @@ export default function DashboardPage() {
       </div>
 
       <div className="dashboard-section">
-        <h3 className="dashboard-section__title">Quick Actions</h3>
+        <h3 className="dashboard-section__title">{t('dashboard.quick_actions')}</h3>
         <div className="quick-actions">
           <Link to="/profile" className="quick-action">
-            <span className="quick-action__text">View & Manage Profile</span>
+            <span className="quick-action__text">{t('dashboard.view_profile')}</span>
             <span className="quick-action__arrow">&rarr;</span>
           </Link>
         </div>

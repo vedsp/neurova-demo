@@ -8,6 +8,8 @@ import LoginPage from './pages/auth/LoginPage'
 import RegisterPage from './pages/auth/RegisterPage'
 import OnboardingPage from './pages/onboarding/OnboardingPage'
 import DashboardPage from './pages/dashboard/DashboardPage'
+import ExerciseMonitor from './pages/dashboard/ExerciseMonitor'
+import Chatbot from './pages/dashboard/Chatbot'
 import ProfilePage from './pages/profile/ProfilePage'
 import NotFoundPage from './pages/NotFoundPage'
 import Spinner from './components/ui/Spinner'
@@ -80,6 +82,8 @@ export default function App() {
             </ProtectedRoute>
           }>
             <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/exercise" element={<ExerciseMonitor />} />
+            <Route path="/chat" element={<Chatbot />} />
             <Route path="/profile" element={<ProfilePage />} />
           </Route>
 

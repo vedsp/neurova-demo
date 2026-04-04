@@ -30,5 +30,21 @@
     "morning": "Good morning",
     "afternoon": "Good afternoon",
     "evening": "Good evening"
+  },
+  "dashboard": {
+    "welcome": "Welcome to your healing space.",
+    "day": "Day",
+    "days": "Days",
+    "active": "Active",
+    "sessions_logged": "Sessions Logged",
+    "physical": "Physical",
+    "cognitive": "Cognitive",
+    "therapy": "Therapy",
+    "training": "Training",
+    "journey": "Recovery Journey",
+    "level1": "Level 1: Foundation",
+    "level1_desc": "Your rehabilitation journey has begun. As you log sessions and track progress, personalized insights and real-time feedback will guide you.",
+    "quick_actions": "Quick Actions",
+    "view_profile": "View & Manage Profile"
   }
 }

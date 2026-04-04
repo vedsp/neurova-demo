@@ -1,8 +1,11 @@
 import { StrictMode, Suspense } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
+import { registerSW } from 'virtual:pwa-register'
 import './lib/i18n'
 import './index.css'
+
+registerSW({ immediate: true })
 
 function LoadingFallback() {
   return (

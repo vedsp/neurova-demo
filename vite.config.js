@@ -1,20 +1,23 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import basicSsl from '@vitejs/plugin-basic-ssl'
 
 export default defineConfig({
   plugins: [
     react(),
+    basicSsl(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'neurova-logo.svg'],
+      includeAssets: ['favicon.svg'],
       manifest: {
         name: 'NEUROVA — Rehabilitation Tracker',
         short_name: 'NEUROVA',
         description: 'AI-powered rehabilitation system for physical joint recovery and cognitive memory improvement',
-        theme_color: '#99ad7a',
+        theme_color: '#fff8ec',
         background_color: '#fff8ec',
         display: 'standalone',
+        display_override: ['window-controls-overlay'],
         orientation: 'portrait',
         scope: '/',
         start_url: '/',
@@ -57,7 +60,19 @@ export default defineConfig({
             }
           }
         ]
+      },
+      devOptions: {
+        enabled: true
       }
     })
-  ]
+  ],
+  server: {
+    host: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+      }
+    }
+  }
 })
