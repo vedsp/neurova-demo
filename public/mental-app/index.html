@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neurova | AI-Powered Rehabilitation Platform</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="index.css">
+  
+  <!-- CDNs -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <div class="bg-glow"></div>
+  <div class="bg-grid"></div>
+
+  <!-- ── LOADER ── -->
+  <div id="loader" class="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- ── NAVIGATION ── -->
+  <nav id="main-nav">
+    <div style="display:flex; align-items:center; padding:1rem 2rem; width:100%; box-sizing:border-box;">
+      <div class="logo" style="font-family:var(--font-display); font-size:1.5rem; font-weight:600; cursor:pointer; color:var(--clr-charcoal); flex-shrink:0;" onclick="window.location.href='/dashboard'">
+        <span style="color:var(--clr-charcoal);">Neur</span><span style="color:var(--clr-sage);">ova</span>
+      </div>
+      <div class="nav-links" style="display:flex; gap:3rem; margin-left:auto; flex-shrink:0;">
+        <a class="nav-link" onclick="showView('exercises')">Games</a>
+        <a class="nav-link" id="nav-progress" onclick="showView('progress')">Progress</a>
+        <a class="nav-link" style="color:var(--text-dim);" href="/dashboard">← NEUROVA</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── APP CONTAINER ── -->
+  <div id="app">
+
+    <!-- ══ VIEW: LANDING ══ -->
+    <section id="view-landing" class="view active" style="padding-top:0;">
+      <div id="landing-view">
+        <div class="hero-text">
+          <p class="fade-in label">Next-Gen Cognitive Recovery</p>
+          <h1 class="fade-in">Precision <em>AI-Powered</em><br/>Cognitive Memory Training</h1>
+          <p class="fade-in">Begin your specialized cognitive rehabilitation journey with personalized memory improvement exercises and real-time AI feedback.</p>
+        </div>
+
+        <div class="path-grid" style="justify-content:center;">
+          <div class="path-card cognitive fade-in" onclick="selectPath('cognitive')" style="max-width:500px;">
+            <h2 class="path-title">Cognitive Memory</h2>
+            <p class="path-desc">Specialized memory improvement exercises designed to enhance neuroplasticity and cognitive function through adaptive learning systems.</p>
+            <span class="path-badge">Adaptive Learning & Scoring</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ VIEW: AUTH ══ -->
+    <section id="view-auth" class="view">
+      <div class="container" style="display:flex; justify-content:center; align-items:center; min-height:80vh;">
+        <div class="glass-card" style="width:100%; max-width:420px; background:var(--clr-white); border:1px solid var(--clr-border); border-radius:12px; padding:3rem; box-shadow:0 1px 3px rgba(45, 45, 45, 0.05);">
+          <h2 id="auth-title" style="font-family:var(--font-main); font-size:1.8rem; font-weight:600; margin-bottom:0.5rem; color:var(--clr-charcoal);">Welcome Back</h2>
+          <p id="auth-subtitle" style="color:var(--clr-slate); font-size:0.9rem; margin-bottom:2rem;">Sign in to access your cognitive dashboard.</p>
+          
+          <div id="auth-tabs" style="display:flex; gap:1.5rem; margin-bottom:2rem; border-bottom:1px solid var(--glass-border);">
+            <button id="tab-login" class="nav-link active" style="background:none; border:none; padding-bottom:0.5rem;" onclick="switchAuth('login')">Login</button>
+            <button id="tab-register" class="nav-link" style="background:none; border:none; padding-bottom:0.5rem;" onclick="switchAuth('register')">Register</button>
+          </div>
+
+          <!-- Login Form -->
+          <form id="login-form" onsubmit="event.preventDefault(); doLogin();">
+            <div style="margin-bottom:1.5rem;">
+              <label style="display:block; font-size:0.8rem; color:var(--text-muted); margin-bottom:0.5rem;">EMAIL ADDRESS</label>
+              <input type="email" id="login-email" class="form-input" style="width:100%; padding:0.8rem 1rem; border-radius:8px; background:var(--clr-white); border:1px solid var(--clr-border); color:var(--clr-charcoal); outline:none; font-family:inherit;" placeholder="you@example.com" required>
+            </div>
+            <div style="margin-bottom:2rem;">
+              <label style="display:block; font-size:0.8rem; color:var(--text-muted); margin-bottom:0.5rem;">PASSWORD</label>
+              <input type="password" id="login-password" class="form-input" style="width:100%; padding:0.8rem 1rem; border-radius:8px; background:var(--clr-white); border:1px solid var(--clr-border); color:var(--clr-charcoal); outline:none; font-family:inherit;" placeholder="••••••••" required>
+            </div>
+            <button type="submit" id="login-btn" class="btn btn-primary" style="width:100%;">Sign In</button>
+          </form>
+
+          <!-- Register Form -->
+          <form id="register-form" style="display:none;" onsubmit="event.preventDefault(); doRegister();">
+            <div style="margin-bottom:1.2rem;">
+              <label style="display:block; font-size:0.8rem; color:var(--text-muted); margin-bottom:0.5rem;">FULL NAME</label>
+              <input type="text" id="reg-name" class="form-input" style="width:100%; padding:0.8rem; border-radius:12px; background:var(--glass); border:1px solid var(--glass-border); color:white; outline:none;" placeholder="John Doe" required>
+            </div>
+            <div style="margin-bottom:1.2rem;">
+              <label style="display:block; font-size:0.8rem; color:var(--text-muted); margin-bottom:0.5rem;">EMAIL ADDRESS</label>
+              <input type="email" id="reg-email" class="form-input" style="width:100%; padding:0.8rem; border-radius:12px; background:var(--glass); border:1px solid var(--glass-border); color:white; outline:none;" placeholder="you@example.com" required>
+            </div>
+            <div style="margin-bottom:1.2rem;">
+              <label style="display:block; font-size:0.8rem; color:var(--text-muted); margin-bottom:0.5rem;">PASSWORD</label>
+              <input type="password" id="reg-password" class="form-input" style="width:100%; padding:0.8rem; border-radius:12px; background:var(--glass); border:1px solid var(--glass-border); color:white; outline:none;" placeholder="Min. 6 characters" required>
+            </div>
+            <div style="margin-bottom:2rem;">
+              <label style="display:block; font-size:0.8rem; color:var(--text-muted); margin-bottom:0.5rem;">YOU ARE A</label>
+              <select id="reg-role" style="width:100%; padding:0.8rem; border-radius:12px; background:var(--glass); border:1px solid var(--glass-border); color:white; outline:none;">
+                <option value="patient">Patient</option>
+                <option value="therapist">Therapist</option>
+              </select>
+            </div>
+            <button type="submit" id="register-btn" class="btn btn-primary" style="width:100%;">Create Account</button>
+          </form>
+          
+            <div id="auth-error" style="color:var(--clr-error); font-size:0.85rem; margin-top:1.5rem; text-align:center; display:none;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ VIEW: DASHBOARD ══ -->
+    <section id="view-dashboard" class="view">
+      <div class="container">
+        <div class="welcome-header" style="margin-bottom: 3rem;">
+           <h1 style="font-family:var(--font-main); font-size:2.8rem; font-weight:600; color:var(--clr-charcoal);">Tracking your <em style="color:var(--clr-sage); font-weight:600;">cognitive recovery</em>,<br/>one session at a time.</h1>
+           <p style="color:var(--clr-slate); margin-top:0.5rem; font-size:0.95rem;">AI-powered memory rehabilitation — real-time feedback & progress analytics.</p>
+        </div>
+
+        <div class="stats-grid" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:1.5rem; margin-bottom:3rem;">
+          <div class="stat-card" style="background:var(--clr-white); padding:1.5rem; border-radius:12px; border:1px solid var(--clr-border); box-shadow:0 1px 2px rgba(45, 45, 45, 0.03);">
+            <span style="font-family:var(--font-main); font-size:0.7rem; color:var(--clr-slate); text-transform:uppercase; font-weight:600;">Sessions Done</span>
+            <div class="stat-val" id="stat-sessions" style="font-size:2.5rem; font-weight:700; color:var(--clr-sage); margin-top:0.5rem;">—</div>
+          </div>
+          <div class="stat-card" style="background:var(--surface); padding:1.5rem; border-radius:20px; border:1px solid var(--glass-border);">
+            <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--text-muted); text-transform:uppercase;">Avg Accuracy</span>
+            <div class="stat-val" id="stat-accuracy" style="font-size:2.5rem; font-weight:700; color:#4fffb0;">—</div>
+          </div>
+          <div class="stat-card" style="background:var(--surface); padding:1.5rem; border-radius:20px; border:1px solid var(--glass-border);">
+            <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--text-muted); text-transform:uppercase;">Best Streak</span>
+            <div class="stat-val" id="stat-streak" style="font-size:2.5rem; font-weight:700; color:#a78bfa;">—</div>
+          </div>
+          <div class="stat-card" style="background:var(--surface); padding:1.5rem; border-radius:20px; border:1px solid var(--glass-border);">
+            <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--text-muted); text-transform:uppercase;">Memory Index</span>
+            <div class="stat-val" id="stat-index" style="font-size:2.5rem; font-weight:700; color:#fb923c;">—</div>
+          </div>
+        </div>
+
+        <div style="margin-bottom:1.5rem; display:flex; justify-content:space-between; align-items:center;">
+          <h3 style="font-family:var(--font-main); font-size:0.8rem; text-transform:uppercase; color:var(--clr-slate); font-weight:600; letter-spacing:0.1em;">Recommended Exercises</h3>
+          <button class="nav-link" onclick="showView('exercises')">View All →</button>
+        </div>
+        
+        <div class="path-grid" style="grid-template-columns: repeat(2, 1fr); gap:1.5rem; margin-bottom:3rem;">
+           <div class="path-card cognitive" style="text-align:left; padding:2rem; cursor:pointer;" onclick="startExercise('digit')">
+             <div style="font-size:2rem; margin-bottom:1rem;">🔢</div>
+             <h4 style="font-family:var(--font-display);">Digit Span</h4>
+             <p style="font-size:0.9rem; color:var(--text-muted);">Working memory — recall number sequences.</p>
+           </div>
+           <div class="path-card cognitive" style="text-align:left; padding:2rem; cursor:pointer;" onclick="startExercise('pattern')">
+             <div style="width:50px; height:50px; background:rgba(153, 173, 122, 0.1); border-radius:10px; margin:0 auto 1rem;"></div>
+             <h4 style="font-family:var(--font-display);">Pattern Recall</h4>
+             <p style="font-size:0.9rem; color:var(--text-muted);">Visual-spatial — reproduce highlighted grid cells.</p>
+           </div>
+        </div>
+
+        <div class="chart-container" style="background:var(--surface); padding:2rem; border-radius:24px; border:1px solid var(--glass-border);">
+          <h3 style="font-family:var(--font-mono); font-size:0.8rem; text-transform:uppercase; color:var(--text-muted); margin-bottom:1.5rem;">Performance Trend</h3>
+          <canvas id="dashboardChart" height="100"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ VIEW: EXERCISES ══ -->
+    <section id="view-exercises" class="view">
+      <div class="container">
+        <div class="welcome-header" style="margin-bottom: 3rem;">
+           <h1 style="font-family:var(--font-display); font-size:2.8rem; font-weight:300;">Cognitive <em>Games</em></h1>
+           <p style="color:var(--text-muted); margin-top:0.5rem;">Track your performance across all games and select one to begin a specialized memory session.</p>
+        </div>
+        
+        <div id="games-analytics" style="display:grid; grid-template-columns: repeat(2, 1fr); gap:2.5rem; margin-bottom:3rem;">
+           <!-- Dynamic game cards will be inserted here -->
+        </div>
+
+        <div style="background:var(--surface); border:1px solid var(--glass-border); border-radius:24px; padding:2rem; margin-top:3rem; display:flex; flex-direction:column; align-items:center;">
+           <h3 style="font-family:var(--font-mono); font-size:0.8rem; text-transform:uppercase; color:var(--text-muted); margin-bottom:1.5rem;">Quick Start Games</h3>
+           <div class="path-grid" style="grid-template-columns: repeat(2, 1fr); gap:1.5rem; max-width:900px;">
+              <div class="path-card cognitive" style="text-align:center; padding:2rem; cursor:pointer;" onclick="startExercise('digit')">
+                <div style="width:60px; height:60px; background:#fff8ec; border:2px solid #99ad7a; border-radius:14px; margin:0 auto 1.5rem; display:flex; align-items:center; justify-content:center; font-size:1.8rem; color:#99ad7a; font-weight:600;">①</div>
+                <h4 style="font-family:var(--font-display);">Digit Span</h4>
+                <p style="font-size:0.9rem; color:var(--text-muted);">Working memory — memorizing and recalling digit sequences.</p>
+              </div>
+              <div class="path-card cognitive" style="text-align:center; padding:2rem; cursor:pointer;" onclick="startExercise('pattern')">
+                <div style="width:60px; height:60px; background:#fff8ec; border:2px solid #99ad7a; border-radius:14px; margin:0 auto 1.5rem; display:flex; align-items:center; justify-content:center; font-size:1.8rem; color:#99ad7a; font-weight:600;">▦</div>
+                <h4 style="font-family:var(--font-display);">Pattern Recall</h4>
+                <p style="font-size:0.9rem; color:var(--text-muted);">Visual-spatial — reproduce highlighted pattern of grid cells.</p>
+              </div>
+              <div class="path-card cognitive" style="text-align:center; padding:2rem; cursor:pointer;" onclick="startExercise('word')">
+                <div style="width:60px; height:60px; background:#fff8ec; border:2px solid #99ad7a; border-radius:14px; margin:0 auto 1.5rem; display:flex; align-items:center; justify-content:center; font-size:1.8rem; color:#99ad7a; font-weight:600;">≣</div>
+                <h4 style="font-family:var(--font-display);">Word Recall</h4>
+                <p style="font-size:0.9rem; color:var(--text-muted);">Episodic memory — recall a studied word list after a delay.</p>
+              </div>
+              <div class="path-card cognitive" style="text-align:center; padding:2rem; cursor:pointer;" onclick="startExercise('sequence')">
+                <div style="width:60px; height:60px; background:#fff8ec; border:2px solid #99ad7a; border-radius:14px; margin:0 auto 1.5rem; display:flex; align-items:center; justify-content:center; font-size:1.8rem; color:#99ad7a; font-weight:600;">▶</div>
+                <h4 style="font-family:var(--font-display);">Sequence Memory</h4>
+                <p style="font-size:0.9rem; color:var(--text-muted);">Procedural memory — follow and repeat color sequences.</p>
+              </div>
+           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ VIEW: PROGRESS ══ -->
+    <section id="view-progress" class="view">
+        <div class="container">
+            <div class="welcome-header" style="margin-bottom: 3rem;">
+               <h1 style="font-family:var(--font-main); font-size:2.8rem; font-weight:600; color:var(--clr-charcoal);">Your <em style=\"color:var(--clr-sage); font-weight:600;\">Progress</em></h1>
+               <p style="color:var(--clr-slate); margin-top:0.5rem; font-size:0.95rem;">Track accuracy, improvement trends, and memory domain scores over time.</p>
+            </div>
+
+            <div class="stats-grid" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:1.5rem; margin-bottom:3rem;">
+                <div class="stat-card" style="background:var(--clr-white); padding:1.5rem; border-radius:12px; border:1px solid var(--clr-border); box-shadow:0 1px 2px rgba(45, 45, 45, 0.03);">
+                   <span style="font-family:var(--font-main); font-size:0.7rem; color:var(--clr-slate); text-transform:uppercase; font-weight:600;">Best Accuracy</span>
+                   <div id="prog-best" class="stat-val" style="font-size:2.5rem; font-weight:700; color:var(--clr-sage); margin-top:0.5rem;">—</div>
+                </div>
+                <div class="stat-card" style="background:var(--clr-white); padding:1.5rem; border-radius:12px; border:1px solid var(--clr-border); box-shadow:0 1px 2px rgba(45, 45, 45, 0.03);">
+                    <span style="font-family:var(--font-main); font-size:0.7rem; color:var(--clr-slate); text-transform:uppercase; font-weight:600;">Overall Trend</span>
+                    <div id="prog-trend" class="stat-val" style="font-size:2.5rem; font-weight:700; color:var(--clr-sage-dark); margin-top:0.5rem;">—</div>
+                </div>
+                <div class="stat-card" style="background:var(--clr-white); padding:1.5rem; border-radius:12px; border:1px solid var(--clr-border); box-shadow:0 1px 2px rgba(45, 45, 45, 0.03);">
+                    <span style="font-family:var(--font-main); font-size:0.7rem; color:var(--clr-slate); text-transform:uppercase; font-weight:600;">Memory Index</span>
+                    <div id="prog-index" class="stat-val" style="font-size:2.5rem; font-weight:700; color:#d4a574; margin-top:0.5rem;">—</div>
+                </div>
+                <div class="stat-card" style="background:var(--clr-white); padding:1.5rem; border-radius:12px; border:1px solid var(--clr-border); box-shadow:0 1px 2px rgba(45, 45, 45, 0.03);">
+                    <span style="font-family:var(--font-main); font-size:0.7rem; color:var(--clr-slate); text-transform:uppercase; font-weight:600;">Total Time</span>
+                    <div id="prog-time" class="stat-val" style="font-size:2.5rem; font-weight:700; color:var(--clr-charcoal); margin-top:0.5rem;">—</div>
+                </div>
+            </div>
+
+            <div style="display:grid; grid-template-columns: 2fr 1fr; gap:2rem; margin-bottom:3rem;">
+               <div class="chart-container" style="background:var(--surface); padding:2rem; border-radius:24px; border:1px solid var(--glass-border);">
+                  <h3 style="font-family:var(--font-mono); font-size:0.8rem; text-transform:uppercase; color:var(--text-muted); margin-bottom:1.5rem;">Weekly Accuracy Trend</h3>
+                  <canvas id="weeklyChart" height="200"></canvas>
+               </div>
+               <div class="chart-container" style="background:var(--surface); padding:2rem; border-radius:24px; border:1px solid var(--glass-border);">
+                  <h3 style="font-family:var(--font-mono); font-size:0.8rem; text-transform:uppercase; color:var(--text-muted); margin-bottom:1.5rem;">Domain Strength</h3>
+                  <canvas id="radarChart" height="200"></canvas>
+               </div>
+            </div>
+
+            <div class="glass-card" style="background:var(--surface); border:1px solid var(--glass-border); border-radius:24px; padding:2rem;">
+               <h3 style="font-family:var(--font-mono); font-size:0.8rem; text-transform:uppercase; color:var(--text-muted); margin-bottom:1.5rem;">Recent Session History</h3>
+               <table style="width:100%; border-collapse:collapse; text-align:left;">
+                  <thead>
+                     <tr style="border-bottom:1px solid var(--glass-border); color:var(--text-dim); font-size:0.7rem; font-family:var(--font-mono);">
+                        <th style="padding:1rem;">DATE</th>
+                        <th style="padding:1rem;">EXERCISE</th>
+                        <th style="padding:1rem;">SCORE</th>
+                        <th style="padding:1rem;">DIFF.</th>
+                        <th style="padding:1rem;">STATUS</th>
+                     </tr>
+                  </thead>
+                  <tbody id="history-body">
+                     <!-- History rows -->
+                  </tbody>
+               </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ VIEW: GAME ══ -->
+    <section id="view-game" class="view">
+       <div class="container">
+          <div class="glass-card" style="background:var(--surface); border:1px solid var(--glass-border); border-radius:24px; padding:3rem; text-align:center;">
+             <div id="game-header" style="margin-bottom:2rem;">
+                <h2 id="game-title" style="font-family:var(--font-display); font-size:2rem;">Game Title</h2>
+                <p id="game-subtitle" style="color:var(--text-muted); font-size:0.9rem;">Game Subtitle</p>
+             </div>
+             
+             <div id="game-stats" style="display:flex; justify-content:center; gap:3rem; margin-bottom:2rem; font-family:var(--font-mono); color:var(--cognitive);">
+                <div>LEVEL: <span id="game-level">1</span></div>
+                <div>SCORE: <span id="game-score">0</span></div>
+                <div>ROUND: <span id="game-round">1/5</span></div>
+             </div>
+
+             <div id="game-arena" style="min-height:300px; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                <!-- Game elements go here -->
+             </div>
+
+             <div id="game-feedback" style="margin-top:2rem; min-height:40px; font-weight:500;"></div>
+             
+             <div style="margin-top:2rem;">
+                <button class="btn btn-outline" style="background:none; border:1px solid var(--glass-border); color:var(--text-muted);" onclick="showView('exercises')">← Back to Games</button>
+             </div>
+          </div>
+       </div>
+    </section>
+
+    <!-- ══ VIEW: RESULTS ══ -->
+    <section id="view-results" class="view">
+       <div class="container" style="display:flex; justify-content:center;">
+          <div class="glass-card" style="width:100%; max-width:600px; background:var(--clr-white); border:1px solid var(--clr-border); border-radius:12px; padding:4rem; text-align:center; box-shadow:0 1px 3px rgba(45, 45, 45, 0.05);">
+             <div style="width:120px; height:120px; border-radius:50%; border:4px solid var(--clr-sage); margin:0 auto 2rem; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+                <span id="res-score" style="font-size:2.5rem; font-weight:700; color:var(--clr-sage);">0%</span>
+                <span style="font-size:0.7rem; color:var(--clr-slate);">ACCURACY</span>
+             </div>
+             <h2 id="res-title" style="font-family:var(--font-main); font-size:2.5rem; font-weight:600; margin-bottom:1rem; color:var(--clr-charcoal);">Well Done!</h2>
+             <p id="res-subtitle" style="color:var(--clr-slate); margin-bottom:2rem;">Your session has been recorded and analyzed by AI.</p>
+             
+             <div id="res-breakdown" style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; text-align:left; margin-bottom:2rem;">
+                <div style="background:var(--glass); padding:1rem; border-radius:12px;">
+                   <span style="font-size:0.7rem; color:var(--text-muted); display:block;">EXERCISE</span>
+                   <span id="res-type" style="font-weight:500;">Digit Span</span>
+                </div>
+                <div style="background:var(--glass); padding:1rem; border-radius:12px;">
+                   <span style="font-size:0.7rem; color:var(--text-muted); display:block;">CORRECT</span>
+                   <span id="res-correct" style="font-weight:500;">5/5</span>
+                </div>
+                <div style="background:var(--glass); padding:1rem; border-radius:12px;">
+                   <span style="font-size:0.7rem; color:var(--text-muted); display:block;">DIFFICULTY</span>
+                   <span id="res-diff" style="font-weight:500;">Level 3</span>
+                </div>
+                <div style="background:var(--glass); padding:1rem; border-radius:12px;">
+                   <span style="font-size:0.7rem; color:var(--text-muted); display:block;">TIME</span>
+                   <span id="res-time" style="font-weight:500;">2.4s avg</span>
+                </div>
+             </div>
+
+             <div id="res-ai-feedback" style="background:rgba(16,185,129,0.05); border:1px solid var(--cognitive-glow); padding:1.5rem; border-radius:16px; text-align:left; font-size:0.9rem; line-height:1.6; margin-bottom:2.5rem;">
+                <!-- AI feedback text -->
+             </div>
+
+             <div style="display:flex; gap:1rem; justify-content:center;">
+                <button id="res-retry-btn" class="btn btn-primary">Try Again</button>
+                <button class="btn btn-outline" style="background:none; border:1px solid var(--glass-border); color:var(--text-muted);" onclick="showView('dashboard')">Dashboard</button>
+             </div>
+          </div>
+       </div>
+    </section>
+
+    <!-- ══ VIEW: PHYSICAL ══ -->
+    <section id="view-physical" class="view" style="min-height:80vh; display:none;">
+      <div class="container" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:70vh; text-align:center;">
+        <div style="width:80px; height:80px; background:rgba(153, 173, 122, 0.1); border-radius:12px; margin:0 auto 1.5rem;"></div>
+        <h1 style="font-family:var(--font-display); font-size:2.8rem; font-weight:300; margin-bottom:1rem;">Physical <em style="font-style:italic; background:linear-gradient(to right,#0ea5e9,#10b981); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;">Recovery</em></h1>
+        <p style="color:var(--text-muted); max-width:560px; font-size:1rem; margin-bottom:3rem;">AI-powered joint tracking and mobility analysis platform. Computer vision technology monitors your rehabilitation progress in real time.</p>
+
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; max-width:760px; margin-bottom:3rem;">
+          <div style="background:var(--surface); border:1px solid var(--glass-border); border-radius:16px; padding:1.5rem;">
+            <div style="font-size:2rem; margin-bottom:0.75rem; color:#99ad7a;">☉</div>
+            <h4 style="font-family:var(--font-display); font-size:1rem; margin-bottom:0.4rem;">Joint Tracking</h4>
+            <p style="font-size:0.8rem; color:var(--text-muted);">Real-time pose estimation via webcam</p>
+          </div>
+          <div style="background:var(--surface); border:1px solid var(--glass-border); border-radius:16px; padding:1.5rem;">
+            <div style="font-size:2rem; margin-bottom:0.75rem; color:#99ad7a;">↑</div>
+            <h4 style="font-family:var(--font-display); font-size:1rem; margin-bottom:0.4rem;">Range of Motion</h4>
+            <p style="font-size:0.8rem; color:var(--text-muted);">Measure &amp; graph mobility improvements</p>
+          </div>
+          <div style="background:var(--surface); border:1px solid var(--glass-border); border-radius:16px; padding:1.5rem;">
+            <div style="font-size:2rem; margin-bottom:0.75rem; color:#99ad7a;">⚡</div>
+            <h4 style="font-family:var(--font-display); font-size:1rem; margin-bottom:0.4rem;">AI Feedback</h4>
+            <p style="font-size:0.8rem; color:var(--text-muted);">Personalised exercise correction</p>
+          </div>
+        </div>
+
+        <span style="display:inline-block; background:rgba(14,165,233,0.1); border:1px solid rgba(14,165,233,0.3); color:#0ea5e9; font-family:var(--font-mono); font-size:0.75rem; padding:0.4rem 1.25rem; border-radius:100px; letter-spacing:0.1em; margin-bottom:2rem;">COMING SOON</span>
+        <div><button class="btn" style="background:none; border:1px solid var(--glass-border); color:var(--text-muted);" onclick="goHome()">← Back to Home</button></div>
+      </div>
+    </section>
+
+  </div> <!-- end app -->
+
+  <script src="index.js"></script>
+</body>
+</html>

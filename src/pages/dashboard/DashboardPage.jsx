@@ -83,13 +83,13 @@ export default function DashboardPage() {
           </Card>
         </a>
 
-        <Link to="#" style={{ textDecoration: 'none', display: 'block' }}>
+        <a href="/mental-app/index.html" style={{ textDecoration: 'none', display: 'block' }}>
           <Card padding="md" className="stat-card stat-card-premium" style={{ height: '100%' }}>
             <div className="stat-icon"><BrainIcon /></div>
             <p className="stat-card__value" style={{ fontSize: 'var(--fs-xl)' }}>Cognitive</p>
             <p className="stat-card__label">Training</p>
           </Card>
-        </Link>
+        </a>
       </div>
 
       <div className="dashboard-section">
