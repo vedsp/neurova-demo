@@ -1,0 +1,75 @@
+{
+  "progress": "Step {{current}} of {{total}}",
+  "step1": {
+    "title": "Let's get to know you",
+    "subtitle": "A few basics to personalize your experience",
+    "dob_label": "Date of Birth",
+    "gender_label": "Gender",
+    "gender_male": "Male",
+    "gender_female": "Female",
+    "gender_other": "Other",
+    "gender_prefer_not": "Prefer not to say"
+  },
+  "step2": {
+    "title": "What brings you to NEUROVA?",
+    "subtitle": "Select the areas you'd like to focus on. You can always update these later.",
+    "categories": {
+      "joint_pain": "Joint Pain",
+      "mobility": "Mobility Issues",
+      "post_surgery": "Post-Surgery Recovery",
+      "muscle_weakness": "Muscle Weakness",
+      "balance": "Balance & Coordination",
+      "memory": "Memory Improvement",
+      "cognitive_decline": "Cognitive Decline",
+      "attention": "Attention & Focus",
+      "speech": "Speech Recovery",
+      "fine_motor": "Fine Motor Skills",
+      "chronic_pain": "Chronic Pain",
+      "other": "Other"
+    },
+    "severity_label": "Severity",
+    "severity_mild": "Mild",
+    "severity_moderate": "Moderate",
+    "severity_severe": "Severe"
+  },
+  "step3": {
+    "title": "A bit about your daily life",
+    "subtitle": "This helps us tailor recommendations to your routine",
+    "sleep_label": "Average Sleep (hours per night)",
+    "activity_label": "Current Activity Level",
+    "activity_sedentary": "Sedentary",
+    "activity_light": "Light",
+    "activity_moderate": "Moderate",
+    "activity_active": "Active",
+    "stress_label": "Stress Level",
+    "stress_low": "Low",
+    "stress_moderate": "Moderate",
+    "stress_high": "High",
+    "stress_very_high": "Very High",
+    "pain_frequency_label": "How often do you experience pain?",
+    "pain_rarely": "Rarely",
+    "pain_sometimes": "Sometimes",
+    "pain_often": "Often",
+    "pain_daily": "Daily"
+  },
+  "step4": {
+    "title": "What would you like to achieve?",
+    "subtitle": "Select your recovery goals so we can track what matters most",
+    "goals": {
+      "track_recovery": "Track Recovery Progress",
+      "reduce_pain": "Reduce Pain",
+      "improve_mobility": "Improve Mobility",
+      "strengthen_memory": "Strengthen Memory",
+      "build_strength": "Build Strength",
+      "improve_balance": "Improve Balance",
+      "daily_exercises": "Daily Exercise Routines",
+      "monitor_cognitive": "Monitor Cognitive Health",
+      "connect_specialist": "Connect with Specialists"
+    },
+    "finish": "Get Started"
+  },
+  "complete": {
+    "title": "You're all set",
+    "message": "Your personalized rehabilitation plan is ready. Let's begin your journey to recovery."
+  }
+}
